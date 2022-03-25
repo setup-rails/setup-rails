@@ -1,10 +1,17 @@
 name: Verify
-on: [push, workflow_call]
+on:
+  workflow_call:
+    outputs:
+      brakeman:
+        description: "Whether to run Brakeman"
+        value: ${{ jobs.example_job.outputs.brakeman }}
 
 jobs:
   linters:
     name: Linters
     runs-on: ubuntu-latest
+    outputs:
+      brakeman: ${{ steps.security.outputs.brakeman }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -39,10 +46,12 @@ jobs:
           # bin/stylelint
           # bin/prettier
           # bin/eslint
-      # - name: Run security checks
-      #   run: |
-      #     bin/bundler-audit --update
-      #     bin/brakeman -q -w2
+      - name: Run security checks
+        id: security
+        if: ${{ steps.security.outputs.brakeman }}
+        run: |
+          bin/brakeman -q -w2
+          # bin/bundler-audit --update
 
   tests:
     name: Tests
