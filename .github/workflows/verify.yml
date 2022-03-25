@@ -93,5 +93,10 @@ jobs:
           bundle exec rails db:setup
 
       - name: Run tests
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: test
         run: |
           bundle exec rspec
