@@ -10,7 +10,7 @@ jobs:
     name: Linters
     runs-on: ubuntu-latest
     outputs:
-      brakeman: ${{ steps.security.inputs.brakeman }}
+      brakeman: ${{ steps.brakeman.inputs.brakeman }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -45,12 +45,16 @@ jobs:
           # bin/stylelint
           # bin/prettier
           # bin/eslint
-      - name: Run security checks
-        id: security
+      - name: Run security checks - brakeman
+        id: brakeman
         if: ${{ inputs.brakeman == true }}
         run: |
           bin/brakeman -q -w2
-          # bin/bundler-audit --update
+      - name: Run security checks - bundler-audit
+        id: bundler-audit
+        if: ${{ inputs.bundler-audit == true }}
+        run: |
+          bin/bundler-audit --update
 
   tests:
     name: Tests
