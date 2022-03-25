@@ -56,6 +56,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_WITHOUT: development
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      RAILS_ENV: test
     services:
       postgres:
         image: postgres:11
@@ -93,10 +97,5 @@ jobs:
           bundle exec rails db:setup
 
       - name: Run tests
-        env:
-          PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: postgres
-          RAILS_ENV: test
         run: |
           bundle exec rspec
