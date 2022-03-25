@@ -43,12 +43,10 @@ jobs:
           # bundle exec prettier
           # bundle exec eslint
       - name: Run security checks - brakeman
-        id: brakeman
         if: ${{ inputs.brakeman == true }}
         run: |
           bundle exec brakeman -q -w2
       - name: Run security checks - bundler-audit
-        id: bundler-audit
         if: ${{ inputs.bundler-audit == true }}
         run: |
           bundle exec bundler-audit --update
