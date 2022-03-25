@@ -47,7 +47,7 @@ jobs:
           # bin/eslint
       - name: Run security checks
         id: security
-        if: ${{ steps.security.inputs.brakeman }}
+        if: ${{ inputs.brakeman == true }}
         run: |
           bin/brakeman -q -w2
           # bin/bundler-audit --update
