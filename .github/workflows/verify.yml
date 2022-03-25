@@ -42,21 +42,21 @@ jobs:
 
       - name: Run linters
         run: |
-          bin/rubocop --parallel
+          bundle exec rubocop --parallel
 
-          # bin/stylelint
-          # bin/prettier
-          # bin/eslint
+          # bundle exec stylelint
+          # bundle exec prettier
+          # bundle exec eslint
       - name: Run security checks - brakeman
         id: brakeman
         if: ${{ inputs.brakeman == true }}
         run: |
-          bin/brakeman -q -w2
+          bundle exec brakeman -q -w2
       - name: Run security checks - bundler-audit
         id: bundler-audit
         if: ${{ inputs.bundler-audit == true }}
         run: |
-          bin/bundler-audit --update
+          bundle exec bundler-audit --update
 
   tests:
     name: Tests
@@ -103,7 +103,7 @@ jobs:
           PGHOST: localhost
           PGUSER: myapp
         run: |
-          bin/rails db:setup
+          bundle exec rails db:setup
 
       - name: Run tests
-        run: bin/rspec
+        run: bundle exec rspec
