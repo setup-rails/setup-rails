@@ -10,6 +10,8 @@ on:
         type: boolean
       run-before-test:
         type: string
+      run-before-linters:
+        type: string
 
 jobs:
   linters:
@@ -37,6 +39,7 @@ jobs:
 
       - name: Run linters
         run: |
+          ${{ inputs.run-before-linters }}
           bundle exec rubocop --parallel
 
           # bundle exec stylelint
