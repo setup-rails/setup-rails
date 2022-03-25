@@ -11,6 +11,8 @@ jobs:
   linters:
     name: Linters
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
     outputs:
       brakeman: ${{ steps.brakeman.inputs.brakeman }}
     steps:
@@ -61,6 +63,8 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
     services:
       postgres:
         image: postgres:11
