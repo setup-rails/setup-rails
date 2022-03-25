@@ -8,7 +8,7 @@ on:
         type: boolean
       rspec:
         type: boolean
-      run-before-test:
+      run-before-tests:
         type: string
       run-before-linters:
         type: string
@@ -94,7 +94,7 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
         run: |
-          ${{ inputs.run-before-test }}
+          ${{ inputs.run-before-tests }}
           bundle exec rails db:setup
 
       - name: Run tests (RSpec)
