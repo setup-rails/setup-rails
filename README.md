@@ -27,7 +27,3 @@ bundle lock --add-platform x86_64-linux
 ```
 
 [Here is an example app](https://github.com/andyw8/setup-rails-example-app) which uses this workflow.
-
-## Features
-
--
