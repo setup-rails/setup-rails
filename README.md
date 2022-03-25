@@ -10,7 +10,7 @@ name: Verify
 on: [push]
 
 jobs:
-  call-workflow-passing-data:
+  verify:
     uses: andyw8/setup-rails/.github/workflows/verify.yml@v1
     # uncomment to enable optional steps:
     #
@@ -27,3 +27,7 @@ bundle lock --add-platform x86_64-linux
 ```
 
 [Here is an example app](https://github.com/andyw8/setup-rails-example-app) which uses this workflow.
+
+## Features
+
+-
