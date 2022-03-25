@@ -6,6 +6,8 @@ on:
         type: boolean
       bundler-audit:
         type: boolean
+      run-before-test:
+        type: string
 
 jobs:
   linters:
@@ -13,8 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_WITHOUT: development
-    outputs:
-      brakeman: ${{ steps.brakeman.inputs.brakeman }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -89,7 +89,9 @@ jobs:
           PGHOST: localhost
           PGUSER: myapp
         run: |
+          ${{ inputs.run-before-test }}
           bundle exec rails db:setup
 
       - name: Run tests
-        run: bundle exec rspec
+        run: |
+          bundle exec rspec
