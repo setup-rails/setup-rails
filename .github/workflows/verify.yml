@@ -64,7 +64,7 @@ jobs:
       RAILS_ENV: test
     services:
       postgres:
-        image: postgres:11
+        image: postgres:14
         ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
