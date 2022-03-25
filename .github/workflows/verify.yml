@@ -4,8 +4,6 @@ on:
     inputs:
       brakeman:
         type: boolean
-        description: "Whether to run Brakeman"
-        value: ${{ jobs.linters.outputs.brakeman }}
 
 jobs:
   linters:
