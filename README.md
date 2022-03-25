@@ -17,6 +17,7 @@ jobs:
     # with:
     #   brakeman: true
     #   bundler-audit: true
+    #   rspec: true
 ```
 
 If you're using a non-x86 machine for development (e.g. Apple M1), you'll need to update `Gemfile.lock` by running:
