@@ -6,6 +6,8 @@ on:
         type: boolean
       bundler-audit:
         type: boolean
+      rspec:
+        type: boolean
       run-before-test:
         type: string
 
@@ -96,6 +98,12 @@ jobs:
           ${{ inputs.run-before-test }}
           bundle exec rails db:setup
 
-      - name: Run tests
+      - name: Run tests (RSpec)
+        if: ${{ inputs.rspec == true }}
         run: |
           bundle exec rspec
+
+      - name: Run tests
+        if: ${{ inputs.rspec != true }}
+        run: |
+          bundle exec rails test
