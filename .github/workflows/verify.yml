@@ -4,6 +4,8 @@ on:
     inputs:
       brakeman:
         type: boolean
+      bundler-audit:
+        type: boolean
 
 jobs:
   linters:
