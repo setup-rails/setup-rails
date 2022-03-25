@@ -1,17 +1,18 @@
 name: Verify
 on:
   workflow_call:
-    outputs:
+    inputs:
       brakeman:
+        type: boolean
         description: "Whether to run Brakeman"
-        value: ${{ jobs.example_job.outputs.brakeman }}
+        value: ${{ jobs.linters.outputs.brakeman }}
 
 jobs:
   linters:
     name: Linters
     runs-on: ubuntu-latest
     outputs:
-      brakeman: ${{ steps.security.outputs.brakeman }}
+      brakeman: ${{ steps.security.inputs.brakeman }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -48,7 +49,7 @@ jobs:
           # bin/eslint
       - name: Run security checks
         id: security
-        if: ${{ steps.security.outputs.brakeman }}
+        if: ${{ steps.security.inputs.brakeman }}
         run: |
           bin/brakeman -q -w2
           # bin/bundler-audit --update
