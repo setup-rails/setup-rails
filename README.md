@@ -12,8 +12,12 @@ on: [push]
 jobs:
   call-workflow-passing-data:
     uses: andyw8/setup-rails/.github/workflows/verify.yml@v1
+    # uncomment to enable optional steps:
+    #
+    # with:
+    #   brakeman: true
+    #   bundler-audit: true
 ```
-
 
 If you're using a non-x86 machine for development (e.g. Apple M1), you'll need to update `Gemfile.lock` by running:
 
