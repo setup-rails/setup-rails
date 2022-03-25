@@ -21,4 +21,4 @@ If you're using a non-x86 machine for development (e.g. Apple M1), you'll need t
 bundle lock --add-platform x86_64-linux
 ```
 
-Here is an [example app](https://github.com/andyw8/setup-rails-example-app/blob/main/.github/workflows/verify.yaml) which uses this workflow.
+Here is an [example app](https://github.com/andyw8/setup-rails-example-app) which uses this workflow.
