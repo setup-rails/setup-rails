@@ -5,6 +5,7 @@ This is a re-usable GitHub Actions workflow based on the post [Building a Rails 
 To use it, create a file in your repo at `.github/workflows/verify.yml`
 containing:
 
+<!-- begin example -->
 ```yaml
 name: Verify
 on: [push]
@@ -20,6 +21,7 @@ jobs:
     #   rspec: true
     #   rubocop: true
 ```
+<!-- end example -->
 
 If you're using a non-x86 machine for development (e.g. Apple M1), you'll need to update `Gemfile.lock` by running:
 
