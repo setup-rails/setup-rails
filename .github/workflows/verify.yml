@@ -61,6 +61,7 @@ jobs:
       PGHOST: localhost
       PGUSER: postgres
       PGPASSWORD: postgres
+      RAILS_ENV: test
     services:
       postgres:
         image: postgres:14
@@ -92,6 +93,7 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
+          RAILS_ENV: test
         run: |
           ${{ inputs.run-before-tests }}
           bundle exec rails db:setup
