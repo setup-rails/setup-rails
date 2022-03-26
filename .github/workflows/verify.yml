@@ -28,12 +28,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Ruby and install gems
+      - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Setup Node and install packages
+      - name: Set up Node and install packages
         uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
@@ -76,12 +76,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Ruby and install gems
+      - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Setup Node
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
@@ -90,7 +90,7 @@ jobs:
         run: |
           yarn install --pure-lockfile
 
-      - name: Setup test database
+      - name: Set up test database
         env:
           PGHOST: localhost
           PGUSER: postgres
