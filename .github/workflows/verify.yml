@@ -33,12 +33,11 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Setup Node
+      - name: Setup Node and install packages
         uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
           cache: "yarn"
-      - name: Install packages
         run: |
           yarn install --pure-lockfile
 
