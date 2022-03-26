@@ -23,6 +23,12 @@ jobs:
 ```
 <!-- end example -->
 
+Alternatively you can install the [RailsByte](https://railsbytes.com/templates/VMys8A):
+
+```
+rails app:template LOCATION="https://railsbytes.com/script/VMys8A"
+```
+
 If you're using a non-x86 machine for development (e.g. Apple M1), you'll need to update `Gemfile.lock` by running:
 
 ```
