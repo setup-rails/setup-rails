@@ -27,3 +27,9 @@ bundle lock --add-platform x86_64-linux
 ```
 
 [Here is an example app](https://github.com/andyw8/setup-rails-example-app) which uses this workflow.
+
+## Current Limitations
+
+- Assumes postgres, no support mysql or other databases
+- Assumes RuboCop is present
+- Assumes yarn, no support for npm
