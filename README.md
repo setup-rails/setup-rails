@@ -30,6 +30,6 @@ bundle lock --add-platform x86_64-linux
 
 ## Current Limitations
 
-- Assumes postgres, no support mysql or other databases
+- Assumes postgres, no support for mysql or other databases
 - Assumes RuboCop is present
 - Assumes yarn, no support for npm
