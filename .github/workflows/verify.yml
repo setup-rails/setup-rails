@@ -41,10 +41,6 @@ jobs:
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec rubocop --parallel
-
-          # bundle exec stylelint
-          # bundle exec prettier
-          # bundle exec eslint
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
         run: |
