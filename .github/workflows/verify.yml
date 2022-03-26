@@ -33,12 +33,14 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set up Node and install packages
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
           cache: "yarn"
-      - run: |
+
+      - name: Install Node packages
+        run: |
           yarn install --pure-lockfile
 
       - name: Run linters - RuboCop
@@ -46,10 +48,12 @@ jobs:
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec rubocop --parallel
+
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
         run: |
           bundle exec brakeman -q -w2
+
       - name: Run security checks - bundler-audit
         if: ${{ inputs.bundler-audit == true }}
         run: |
@@ -81,12 +85,14 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Set up Node and install packages
+      - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: ${{ inputs.node-version }}
           cache: "yarn"
-      - run: |
+
+      - name: Install Node packages
+        run: |
           yarn install --pure-lockfile
 
       - name: Set up test database
