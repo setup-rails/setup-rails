@@ -12,12 +12,13 @@ on: [push]
 jobs:
   verify:
     uses: andyw8/setup-rails/.github/workflows/verify.yml@v1
-    # uncomment to enable optional steps:
+    # uncomment to enable options:
     #
     # with:
     #   brakeman: true
     #   bundler-audit: true
     #   rspec: true
+    #   rubocop: true
 ```
 
 If you're using a non-x86 machine for development (e.g. Apple M1), you'll need to update `Gemfile.lock` by running:
@@ -31,5 +32,4 @@ bundle lock --add-platform x86_64-linux
 ## Current Limitations
 
 - Assumes postgres, no support for mysql or other databases
-- Assumes RuboCop is present
 - Assumes yarn, no support for npm

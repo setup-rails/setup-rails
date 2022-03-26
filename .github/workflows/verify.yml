@@ -6,15 +6,17 @@ on:
         type: boolean
       bundler-audit:
         type: boolean
+      node-version:
+        type: string
+        default: "16"
       rspec:
+        type: boolean
+      rubocop:
         type: boolean
       run-before-tests:
         type: string
       run-before-linters:
         type: string
-      node-version:
-        type: string
-        default: "16"
 
 jobs:
   linters:
@@ -40,7 +42,8 @@ jobs:
         run: |
           yarn install --pure-lockfile
 
-      - name: Run linters
+      - name: Run linters - RuboCop
+        if: ${{ inputs.rubocop == true }}
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec rubocop --parallel
