@@ -23,7 +23,7 @@ jobs:
 ```
 <!-- end example -->
 
-Alternatively you can install the [RailsByte](https://railsbytes.com/templates/VMys8A):
+Alternatively, you can install with [RailsBytes](https://railsbytes.com/templates/VMys8A):
 
 ```
 rails app:template LOCATION="https://railsbytes.com/script/VMys8A"
