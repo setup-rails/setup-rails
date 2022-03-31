@@ -37,6 +37,20 @@ bundle lock --add-platform x86_64-linux
 
 [Here is an example app](https://github.com/andyw8/setup-rails-example-app) which uses this workflow.
 
+## Features
+
+* Uses the latest releases of `actions/checkout`, `ruby/setup-ruby` and `actions/setup-node`.
+* Will be updated as its dependencies such as `ruby/setup-ruby` are updated (via Dependabot)
+* Caches node and Ruby dependencies.
+* Brakeman option
+* bundler-audit option
+* Doesn't asssume binstubs
+* Skip development gems
+* Uses latest LTS node
+* Hooks for `run-before-test` and `run-before-lint`
+* Supports minitest and RSpec
+* Uses latest Postgres
+
 ## Current Limitations
 
 - Assumes postgres, no support for mysql or other databases
