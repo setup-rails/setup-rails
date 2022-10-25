@@ -8,7 +8,6 @@ on:
         type: boolean
       node-version:
         type: string
-        default: "18"
       rspec:
         type: boolean
       rubocop:
