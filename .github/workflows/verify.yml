@@ -8,6 +8,8 @@ on:
         type: boolean
       node-version:
         type: string
+      node-version-file:
+        type: string
       rspec:
         type: boolean
       rubocop:
@@ -37,6 +39,7 @@ jobs:
         if: hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
+          node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
 
       - name: Install Node packages
