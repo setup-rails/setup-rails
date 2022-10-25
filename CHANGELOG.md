@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Support `node-version-file` parameter.
+
 ## [v1] - 2022-03-26
 
 - Initial release
