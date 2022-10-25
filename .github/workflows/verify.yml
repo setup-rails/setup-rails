@@ -93,6 +93,7 @@ jobs:
         if: hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
+          node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
 
       - name: Install Node packages
