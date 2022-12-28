@@ -14,7 +14,7 @@ on: [push]
 
 jobs:
   verify:
-    uses: andyw8/setup-rails/.github/workflows/verify.yml@v1
+    uses: setup-rails/setup-rails/.github/workflows/verify.yml@v1
     # uncomment to enable options:
     #
     # with:
