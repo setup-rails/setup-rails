@@ -29,7 +29,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Check file existence
+      - name: Check for package.json existence
         id: package_json_check
         uses: andstor/file-existence-action@v2
         with:
@@ -90,16 +90,27 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Check file existence
+      - name: Check for package.json existence
         id: package_json_check
         uses: andstor/file-existence-action@v2
         with:
           files: "package.json"
 
+      - name: Check for Sorbet
+        id: sorbet_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "sorbet"
+
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Sorbet check
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec srb typecheck
 
       - name: Set up Node
         uses: actions/setup-node@v3
