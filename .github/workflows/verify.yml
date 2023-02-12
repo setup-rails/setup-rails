@@ -96,7 +96,7 @@ jobs:
         with:
           files: "package.json"
 
-      - name: Check for Sorbet
+      - name: Check if Sorbet is in use
         id: sorbet_check
         uses: andstor/file-existence-action@v2
         with:
@@ -107,7 +107,7 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Sorbet check
+      - name: Run Sorbet typecheck
         if: steps.sorbet_check.outputs.files_exists == 'true'
         run: |
           bundle exec srb typecheck
