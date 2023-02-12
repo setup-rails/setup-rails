@@ -29,6 +29,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Check file existence
+        id: package_json_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "package.json"
+
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
@@ -36,13 +42,14 @@ jobs:
 
       - name: Set up Node
         uses: actions/setup-node@v3
-        if: hashFiles('yarn.lock') != ''
+        if: steps.package_json_check.outputs.files_exists == 'true' && hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
           node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
 
       - name: Install Node packages
+        if: steps.package_json_check.outputs.files_exists == 'true'
         run: |
           yarn install --pure-lockfile
 
@@ -83,6 +90,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Check file existence
+        id: package_json_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "package.json"
+
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
@@ -90,13 +103,14 @@ jobs:
 
       - name: Set up Node
         uses: actions/setup-node@v3
-        if: hashFiles('yarn.lock') != ''
+        if: steps.package_json_check.outputs.files_exists == 'true' && hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
           node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
 
       - name: Install Node packages
+        if: steps.package_json_check.outputs.files_exists == 'true'
         run: |
           yarn install --pure-lockfile
 
