@@ -81,7 +81,7 @@ jobs:
       REDIS_HOST: redis
     services:
       postgres:
-        image: postgres:14
+        image: postgres
         ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
