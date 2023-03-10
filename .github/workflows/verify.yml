@@ -78,6 +78,7 @@ jobs:
       PGUSER: postgres
       PGPASSWORD: postgres
       RAILS_ENV: test
+      REDIS_HOST: redis
     services:
       postgres:
         image: postgres:14
@@ -91,7 +92,7 @@ jobs:
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 5t l
 
     steps:
       - name: Check out code
