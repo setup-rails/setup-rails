@@ -151,4 +151,4 @@ jobs:
       - name: Run tests
         if: ${{ inputs.rspec != true }}
         run: |
-          bundle exec rails test
+          bundle exec rails test:all
