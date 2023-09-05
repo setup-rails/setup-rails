@@ -27,7 +27,7 @@ jobs:
       BUNDLE_WITHOUT: development
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check for package.json existence
         id: package_json_check
@@ -96,7 +96,7 @@ jobs:
         ports: ["6379:6379"]
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Check for package.json existence
         id: package_json_check
