@@ -14,6 +14,8 @@ on:
         type: boolean
       rubocop:
         type: boolean
+      standard:
+        type: boolean
       run-before-tests:
         type: string
       run-before-linters:
@@ -58,6 +60,12 @@ jobs:
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec rubocop --parallel
+
+      - name: Run linters - Standard
+        if: ${{ inputs.standard == true }}
+        run: |
+          ${{ inputs.run-before-linters }}
+          bundle exec standardrb
 
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
