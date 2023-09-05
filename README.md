@@ -22,6 +22,7 @@ jobs:
     #   bundler-audit: true
     #   rspec: true
     #   rubocop: true
+    #   standard: true
 ```
 <!-- end example -->
 
