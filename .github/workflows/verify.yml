@@ -16,10 +16,13 @@ on:
         type: boolean
       standard:
         type: boolean
+      run-after-checkout:
+        type: string
       run-before-tests:
         type: string
       run-before-linters:
         type: string
+
 
 jobs:
   linters:
@@ -28,6 +31,11 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Run after checkout
+        if: ${{ inputs.run-after-checkout != '' }}
+        run: |
+          ${{ inputs.run-after-checkout }}
 
       - name: Check for package.json existence
         id: package_json_check
@@ -103,6 +111,11 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v4
+
+      - name: Run after checkout
+        if: ${{ inputs.run-after-checkout != '' }}
+        run: |
+          ${{ inputs.run-after-checkout }}
 
       - name: Check for package.json existence
         id: package_json_check
