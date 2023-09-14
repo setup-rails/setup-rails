@@ -10,7 +10,7 @@ containing:
 <!-- begin example -->
 ```yaml
 name: Verify
-on: [push]
+on: [push, pull_request]
 
 jobs:
   verify:
