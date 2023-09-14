@@ -32,7 +32,7 @@ Alternatively, you can install with [RailsBytes](https://railsbytes.com/template
 rails app:template LOCATION="https://railsbytes.com/script/VMys8A"
 ```
 
-You'll need to update `Gemfile.lock` by running:
+You may also need to update `Gemfile.lock` by running:
 
 ```
 bundle lock --add-platform x86_64-linux
