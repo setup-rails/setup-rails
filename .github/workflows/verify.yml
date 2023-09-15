@@ -123,16 +123,16 @@ jobs:
         with:
           files: "package.json"
 
+      - name: Set up Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
       - name: Check if Sorbet is in use
         id: sorbet_check
         uses: andstor/file-existence-action@v2
         with:
           files: "sorbet"
-
-      - name: Set up Ruby and install gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
 
       - name: Run Sorbet typecheck
         if: steps.sorbet_check.outputs.files_exists == 'true'
