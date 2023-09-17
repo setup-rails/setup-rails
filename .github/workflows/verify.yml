@@ -56,10 +56,26 @@ jobs:
           node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
 
-      - name: Install Node packages
-        if: steps.package_json_check.outputs.files_exists == 'true'
+      - name: Check if Sorbet is in use
+        id: sorbet_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "sorbet"
+
+      - name: Run Sorbet typecheck
+        if: steps.sorbet_check.outputs.files_exists == 'true'
         run: |
-          yarn install --pure-lockfile
+          bundle exec srb typecheck
+
+      - name: Tapioca - check duplicated definitions in shims
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec tapioca check-shims
+
+      - name: Run Spoom bump check
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec spoom bump --dry
 
       - name: Run linters - RuboCop
         if: ${{ inputs.rubocop == true }}
@@ -72,6 +88,11 @@ jobs:
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec standardrb
+
+      - name: Install Node packages
+        if: steps.package_json_check.outputs.files_exists == 'true'
+        run: |
+          yarn install --pure-lockfile
 
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
@@ -127,27 +148,6 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-
-      - name: Check if Sorbet is in use
-        id: sorbet_check
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "sorbet"
-
-      - name: Run Sorbet typecheck
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec srb typecheck
-
-      - name: Tapioca - check duplicated definitions in shims
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec tapioca check-shims
-
-      - name: Run Spoom bump check
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec spoom bump --dry
 
       - name: Set up Node
         uses: actions/setup-node@v3
