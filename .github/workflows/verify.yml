@@ -144,6 +144,11 @@ jobs:
         run: |
           bundle exec tapioca check-shims
 
+      - name: Run Spoom bump check
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec spoom bump --dry
+
       - name: Set up Node
         uses: actions/setup-node@v3
         if: steps.package_json_check.outputs.files_exists == 'true' && hashFiles('yarn.lock') != ''
