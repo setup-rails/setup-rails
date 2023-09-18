@@ -112,7 +112,7 @@ jobs:
         if: ${{ inputs.standard == true }}
         run: |
           ${{ inputs.run-before-linters }}
-          bundle exec standardrb
+          bundle exec standardrb --parallel
 
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
