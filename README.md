@@ -43,4 +43,4 @@ bundle lock --add-platform x86_64-linux
 ## Current Limitations
 
 - Assumes postgres, no support for mysql or other databases
-- Assumes yarn, no support for npm
+- Assumes yarn or [bun](https://bun.sh), no support for npm
