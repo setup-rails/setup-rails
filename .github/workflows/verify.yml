@@ -10,6 +10,9 @@ on:
         type: string
       node-version-file:
         type: string
+      bun-version:
+        type: string
+        default: latest
       rspec:
         type: boolean
       rubocop:
@@ -43,6 +46,12 @@ jobs:
         with:
           files: "package.json"
 
+      - name: Check for bun.lockb existence
+        id: bun_lock_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "bun.lockb"
+
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
@@ -50,11 +59,27 @@ jobs:
 
       - name: Set up Node
         uses: actions/setup-node@v3
-        if: steps.package_json_check.outputs.files_exists == 'true' && hashFiles('yarn.lock') != ''
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'false' && hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
           node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
+
+      - name: Install Node packages
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'false'
+        run: |
+          yarn install --pure-lockfile
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'true'
+        with:
+          bun-version: ${{ inputs.bun-version }}
+
+      - name: Install Bun packages
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'true'
+        run: |
+          bun install --frozen-lockfile
 
       - name: Check if Sorbet is in use
         id: sorbet_check
@@ -88,11 +113,6 @@ jobs:
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec standardrb
-
-      - name: Install Node packages
-        if: steps.package_json_check.outputs.files_exists == 'true'
-        run: |
-          yarn install --pure-lockfile
 
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
@@ -144,6 +164,12 @@ jobs:
         with:
           files: "package.json"
 
+      - name: Check for bun.lockb existence
+        id: bun_lock_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "bun.lockb"
+
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
@@ -151,16 +177,27 @@ jobs:
 
       - name: Set up Node
         uses: actions/setup-node@v3
-        if: steps.package_json_check.outputs.files_exists == 'true' && hashFiles('yarn.lock') != ''
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'false' && hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
           node-version-file: ${{ inputs.node-version-file }}
           cache: "yarn"
 
       - name: Install Node packages
-        if: steps.package_json_check.outputs.files_exists == 'true'
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'false'
         run: |
           yarn install --pure-lockfile
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'true'
+        with:
+          bun-version: ${{ inputs.bun-version }}
+
+      - name: Install Bun packages
+        if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'true'
+        run: |
+          bun install --frozen-lockfile
 
       - name: Set up test database
         env:
