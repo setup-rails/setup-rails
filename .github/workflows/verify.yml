@@ -58,7 +58,7 @@ jobs:
           bundler-cache: true
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'false' && hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
@@ -176,7 +176,7 @@ jobs:
           bundler-cache: true
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'false' && hashFiles('yarn.lock') != ''
         with:
           node-version: ${{ inputs.node-version }}
