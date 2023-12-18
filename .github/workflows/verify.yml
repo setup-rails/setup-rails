@@ -46,6 +46,12 @@ jobs:
         with:
           files: "package.json"
 
+      - name: Check for .erb-lint.yml existence
+        id: erb_lint_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: ".erb-lint.yml"
+
       - name: Check for bun.lockb existence
         id: bun_lock_check
         uses: andstor/file-existence-action@v2
@@ -113,6 +119,11 @@ jobs:
         run: |
           ${{ inputs.run-before-linters }}
           bundle exec standardrb --parallel
+
+      - name: Run erb_lint
+        if: steps.erb_lint_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec erblint --lint-all
 
       - name: Run security checks - brakeman
         if: ${{ inputs.brakeman == true }}
