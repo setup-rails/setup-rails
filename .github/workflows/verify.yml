@@ -124,6 +124,10 @@ jobs:
         run: |
           bundle exec bundler-audit --update
 
+      - name: Run zeitwerk check
+        run: |
+          bundle exec rails zeitwerk:check
+
   tests:
     name: Tests
     runs-on: ubuntu-latest
