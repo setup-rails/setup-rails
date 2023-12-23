@@ -234,8 +234,8 @@ jobs:
       - name: Run Tapioca gem and DSL checks
         if: steps.tapioca_check.outputs.files_exists == 'true'
         run: |
-          bundle exec tapioca gems --verify
-          bundle exec tapioca dsl --verify
+          RAILS_ENV=test bundle exec tapioca gems --verify
+          RAILS_ENV=test bundle exec tapioca dsl --verify
           
       - name: Run tests (RSpec)
         if: ${{ inputs.rspec == true }}
