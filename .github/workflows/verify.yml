@@ -87,28 +87,6 @@ jobs:
         run: |
           bun install --frozen-lockfile
 
-      - name: Check if Sorbet is in use
-        id: sorbet_check
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "sorbet"
-
-      - name: Run Sorbet typecheck
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec srb typecheck
-
-
-      - name: Tapioca - check duplicated definitions in shims
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec tapioca check-shims
-
-      - name: Run Spoom bump check
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec spoom bump --dry
-
       - name: Run linters - RuboCop
         if: ${{ inputs.rubocop == true }}
         run: |
@@ -224,19 +202,7 @@ jobs:
         run: |
           ${{ inputs.run-before-tests }}
           bundle exec rails db:setup
-          
-      - name: Check if Tapioca is in use
-        id: tapioca_check
-        uses: andstor/file-existence-action@v2
-        with:
-          files: "sorbet/tapioca"
 
-      - name: Run Tapioca gem and DSL checks
-        if: steps.tapioca_check.outputs.files_exists == 'true'
-        run: |
-          RAILS_ENV=test bundle exec tapioca gems --verify
-          RAILS_ENV=test bundle exec tapioca dsl --verify
-          
       - name: Run tests (RSpec)
         if: ${{ inputs.rspec == true }}
         run: |
@@ -246,3 +212,71 @@ jobs:
         if: ${{ inputs.rspec != true }}
         run: |
           bundle exec rails test:all
+
+  typing:
+    name: Typing
+    runs-on: ubuntu-latest
+    env:
+      PGHOST: localhost
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      RAILS_ENV: test
+      REDIS_HOST: redis
+    services:
+      postgres:
+        image: postgres
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up test database
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: development
+        run: |
+          ${{ inputs.run-before-tests }}
+          bundle exec rails db:setup
+
+      - name: Check if Sorbet is in use
+        id: sorbet_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "sorbet"
+
+      - name: Check if Tapioca is in use
+        id: tapioca_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "sorbet/tapioca"
+
+      - name: Run Sorbet typecheck
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec srb typecheck
+
+      - name: Tapioca - check duplicated definitions in shims
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec tapioca check-shims
+
+      - name: Run Spoom bump check
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec spoom bump --dry
+
+      - name: Run Tapioca gem and DSL checks
+        if: steps.tapioca_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec tapioca gems --verify
+          bundle exec tapioca dsl --verify
