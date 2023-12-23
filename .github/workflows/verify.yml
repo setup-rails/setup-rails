@@ -98,10 +98,6 @@ jobs:
         run: |
           bundle exec srb typecheck
 
-      - name: Run Tapioca DSL check
-        if: steps.sorbet_check.outputs.files_exists == 'true'
-        run: |
-          bundle exec tapioca dsl --verify
 
       - name: Tapioca - check duplicated definitions in shims
         if: steps.sorbet_check.outputs.files_exists == 'true'
@@ -228,7 +224,18 @@ jobs:
         run: |
           ${{ inputs.run-before-tests }}
           bundle exec rails db:setup
+          
+      - name: Check if Tapioca is in use
+        id: tapioca_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: "sorbet/tapioca"
 
+      - name: Run Tapioca DSL check
+        if: steps.tapioca_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec tapioca dsl --verify
+          
       - name: Run tests (RSpec)
         if: ${{ inputs.rspec == true }}
         run: |
