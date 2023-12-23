@@ -98,6 +98,11 @@ jobs:
         run: |
           bundle exec srb typecheck
 
+      - name: Run Tapioca DSL check
+        if: steps.sorbet_check.outputs.files_exists == 'true'
+        run: |
+          bundle exec tapioca dsl --verify
+
       - name: Tapioca - check duplicated definitions in shims
         if: steps.sorbet_check.outputs.files_exists == 'true'
         run: |
