@@ -231,9 +231,10 @@ jobs:
         with:
           files: "sorbet/tapioca"
 
-      - name: Run Tapioca DSL check
+      - name: Run Tapioca gem and DSL checks
         if: steps.tapioca_check.outputs.files_exists == 'true'
         run: |
+          bundle exec tapioca gems --verify
           bundle exec tapioca dsl --verify
           
       - name: Run tests (RSpec)
