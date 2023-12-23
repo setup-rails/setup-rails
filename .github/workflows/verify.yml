@@ -176,6 +176,10 @@ jobs:
         with:
           files: "bun.lockb"
 
+      - name: Install libvips
+        run: |
+          sudo apt-get install -y -qq libvips
+
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
