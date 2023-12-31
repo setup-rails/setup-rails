@@ -14,7 +14,7 @@ on: [push, pull_request]
 
 jobs:
   verify:
-    uses: setup-rails/setup-rails/.github/workflows/verify.yml@v1
+    uses: setup-rails/setup-rails/.github/workflows/verify.yml@v1 # use @main for latest updates
     # uncomment to enable options:
     #
     # with:
