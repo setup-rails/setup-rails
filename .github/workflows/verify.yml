@@ -31,6 +31,8 @@ jobs:
   linters:
     name: Linters
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
     steps:
       - name: Check out code
         uses: actions/checkout@v4
