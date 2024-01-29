@@ -44,19 +44,19 @@ jobs:
 
       - name: Check for package.json existence
         id: package_json_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "package.json"
 
       - name: Check for .erb-lint.yml existence
         id: erb_lint_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: ".erb-lint.yml"
 
       - name: Check for bun.lockb existence
         id: bun_lock_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "bun.lockb"
 
@@ -91,7 +91,7 @@ jobs:
 
       - name: Check for RuboCop
         id: rubocop_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: ".rubocop.yml"
 
@@ -103,7 +103,7 @@ jobs:
 
       - name: Check for Standard
         id: standard_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: ".standard.yml"
 
@@ -168,13 +168,13 @@ jobs:
 
       - name: Check for package.json existence
         id: package_json_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "package.json"
 
       - name: Check for bun.lockb existence
         id: bun_lock_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "bun.lockb"
 
@@ -268,13 +268,13 @@ jobs:
 
       - name: Check if Sorbet is in use
         id: sorbet_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "sorbet"
 
       - name: Check if Tapioca is in use
         id: tapioca_check
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: "sorbet/tapioca"
 
