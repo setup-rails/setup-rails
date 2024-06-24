@@ -79,7 +79,7 @@ jobs:
           yarn install --pure-lockfile
 
       - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'true'
         with:
           bun-version: ${{ inputs.bun-version }}
@@ -201,7 +201,7 @@ jobs:
           yarn install --pure-lockfile
 
       - name: Set up Bun
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
         if: steps.package_json_check.outputs.files_exists == 'true' && steps.bun_lock_check.outputs.files_exists == 'true'
         with:
           bun-version: ${{ inputs.bun-version }}
