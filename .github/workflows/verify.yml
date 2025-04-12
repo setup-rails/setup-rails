@@ -26,7 +26,6 @@ on:
       run-before-linters:
         type: string
 
-
 jobs:
   linters:
     name: Linters
@@ -178,9 +177,9 @@ jobs:
         with:
           files: "bun.lockb"
 
-      - name: Install libvips
+      - name: Install packages
         run: |
-          sudo apt-get install -y -qq libvips
+          sudo apt-get update && sudo apt-get install -y -qq libvips
 
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
