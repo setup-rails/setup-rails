@@ -47,11 +47,11 @@ jobs:
         with:
           files: "package.json"
 
-      - name: Check for .erb-lint.yml existence
+      - name: Check for erb_lint config
         id: erb_lint_check
         uses: andstor/file-existence-action@v3
         with:
-          files: ".erb-lint.yml, .erb_lint.yml"
+          files: ".erb{-,_}lint.yml"
 
       - name: Check for bun.lockb existence
         id: bun_lock_check
