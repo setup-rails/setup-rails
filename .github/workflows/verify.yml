@@ -51,7 +51,7 @@ jobs:
         id: erb_lint_check
         uses: andstor/file-existence-action@v3
         with:
-          files: ".erb-lint.yml"
+          files: ".erb-lint.yml, .erb_lint.yml"
 
       - name: Check for bun.lockb existence
         id: bun_lock_check
