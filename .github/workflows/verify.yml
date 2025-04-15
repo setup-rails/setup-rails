@@ -94,6 +94,18 @@ jobs:
         with:
           files: ".rubocop.yml"
 
+      - name: Check if RuboCop is in use
+        id: rubocop_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: ".rubocop.yml"
+
+      - name: Check if Standard is in use
+        id: standard_check
+        uses: andstor/file-existence-action@v2
+        with:
+          files: ".standard.yml"
+
       - name: Run linters - RuboCop
         if: ${{ inputs.rubocop == true || steps.rubocop_check.outputs.files_exists == 'true' }}
         run: |
