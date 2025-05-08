@@ -228,7 +228,12 @@ jobs:
       - name: Run tests
         if: ${{ inputs.rspec != true }}
         run: |
-          bundle exec rails test:all
+          bundle exec rails test
+
+      - name: Run system tests
+        if: ${{ inputs.rspec != true }}
+        run: |
+          bundle exec rails test:system
 
   typing:
     name: Typing
