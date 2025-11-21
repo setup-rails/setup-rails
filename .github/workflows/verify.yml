@@ -34,7 +34,7 @@ jobs:
       BUNDLE_WITHOUT: development
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run after checkout
         if: ${{ inputs.run-after-checkout != '' }}
@@ -158,7 +158,7 @@ jobs:
         ports: ["6379:6379"]
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run after checkout
         if: ${{ inputs.run-after-checkout != '' }}
@@ -253,7 +253,7 @@ jobs:
           POSTGRES_PASSWORD: postgres
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Ruby and install gems
         uses: ruby/setup-ruby@v1
